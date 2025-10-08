@@ -1,6 +1,6 @@
+import { HandlerEvent } from './types.js';
 import { HttpStatus } from './constants.js';
 import { Utils, isJsonatable } from './utils.js';
-import { HandlerEvent } from './types.js';
 import LocalServer from './fixtures/server.js';
 
 describe('Utils', () => {
@@ -115,7 +115,7 @@ describe('Handler', () => {
       })
     );
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HttpStatus.OK);
     expect(res.body.status).toBe('Success');
     expect(res.body.response_data.outputs).toBeDefined();
     expect(res.body.response_data.outputs.alerts).toBe('Autobots approaching');
@@ -130,7 +130,7 @@ describe('Handler', () => {
     try {
       await Utils.makeRequest(notFoundEvent, null); // should throw an error
     } catch (err) {
-      expect(err.status).toBe(404);
+      expect(err.status).toBe(HttpStatus.NOT_FOUND);
       expect(err.body.message).toContain('Not Found'); // expected statusText
     } finally {
       expect(fetchSpy).toHaveBeenCalledWith(

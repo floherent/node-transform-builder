@@ -56,7 +56,15 @@ export type MetadataParams = {
   extras?: Record<string, unknown>;
 };
 
-/** Data types for the request of a transform. */
+/* Data types for the request/response of a transform. Modify this as needed if
+ * you want to work with specific data types. The 'any' type is used here to allow
+ * for flexibility in the data types.
+ *
+ * If you want to work with specific data types, you can define them here. For example:
+ * ```typescript
+ * export type TRequest = { name: string; age: number; };
+ * export type TResponse = { message: string; data: any; };
+ * ```
+ */
 export type TRequest = any;
-/** Data types for the response of a transform. */
 export type TResponse = any;

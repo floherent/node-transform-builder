@@ -39,7 +39,7 @@ The project includes comprehensive tests:
 npm test
 
 # Test with coverage
-npm run test -- --coverage
+npm test -- --coverage
 
 # Run specific test files
 npm test -- handler.test.ts
@@ -102,26 +102,18 @@ TypeScript type definitions for:
 - `HandlerEvent`: complete event structure from Transform Document API
 - `HandlerResponse`: structured response object with HTTP status, headers, and body
 - `HttpResponse`: standardized response format
-- `UriParams`: service URI components
-- `MetadataParams`: execution metadata structure for Spark requests
+- `UriParams`: service URI components of Spark (folder, service, version, versionId, serviceId, proxy endpoint)
+- `MetadataParams`: execution metadata structure for Spark requests using Execute API (v3)
 
 #### 4. JSONata Transforms
 
-- **Request Transform**: Extracts and maps insurance plan data fields
+- **Request Transform**: Extracts and maps data fields from the request body
 - **Response Transform**: Restructures Spark response into expected format
 
 #### 5. Build System
 
 - **Rollup**: Bundles TypeScript into optimized JavaScript
 - **Scripts**: Validation, transform generation, and publishing utilities
-
-### Data Flow
-
-1. **Input**: Insurance plan data with coverage, benefits, and rate information
-2. **Request Transform**: Maps ~100+ input fields to Spark-compatible format
-3. **Spark Execution**: Processes data through rate engine calculations
-4. **Response Transform**: Maps Spark outputs back to structured response
-5. **Output**: Formatted response with rate cards, premiums, and calculated factors
 
 ### Key Design Patterns
 

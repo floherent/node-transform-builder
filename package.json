@@ -1,6 +1,6 @@
 {
   "name": "node-transform-builder",
-  "version": "1.0.0-dev.1",
+  "version": "0.1.0-dev.1",
   "description": "A tool to build node transform documents for Coherent Spark",
   "author": "Coherent (https://coherent.global)",
   "license": "Apache-2.0",

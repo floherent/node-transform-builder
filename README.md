@@ -1,15 +1,15 @@
-# Node.js Transform Document Builder
+# Node Transform Document Builder
 
-This is a specialized tool for building Node.js transform documents designed for the Coherent platform.
+This is a specialized tool for building [Node transform documents][node-transform-docs] designed for the Coherent platform.
+
 Think of this as your go-to solution when standard JSONata transforms aren't quite enough for your needs.
-It's designed for those moments when you need to do more than simple data mapping—like implementing
+It's designed for those moments when you need to do more than simple data mapping — e.g., implementing
 [MapReduce][map-reduce] patterns, orchestrating multi-step business logic, or processing complex
 unstructured data that requires a mix of [JSONata][jsonata] expressions (or [fast-xml-parser][fast-xml-parser]
 for XML data), and custom JavaScript logic. Plus, it easily integrates with Coherent Spark's
 [Execute API (v3)][exec-v3] to help you build sophisticated data transformation pipelines.
 
-> **Heads up!**
->
+> [!IMPORTANT]
 > This tool is here to give you a solid foundation for building Node.js transform documents
 > with JSONata workflows, but it's not a complete out-of-the-box solution. You may think of it as getting
 > you about 80% of the way there; the final 20% will depend on your specific data contract and how your
@@ -18,9 +18,9 @@ for XML data), and custom JavaScript logic. Plus, it easily integrates with Cohe
 
 ## TL;DR
 
-This repository helps you create a production-ready [handler](src/handler.ts) — a Node.js transform document
+This repository helps you create a production-ready [handler](src/handler.ts) — a Node transform document
 in JSON format that you can deploy to Coherent Spark. It does this by combining JSONata expressions,
-JavaScript code, and Coherent Spark's [Execute API (v3)][exec-v3] into a single, deployable package.
+JavaScript code, and Coherent Spark's [Execute API (v3)][exec-v3] into a single, deployable JSON file.
 
 To get you started quickly, the build scripts will generate a sample transform document in the `dist`
 directory. This sample demonstrates a "volume of a cylinder" calculation, so you'll want to customize
@@ -30,20 +30,22 @@ folder follows the same example. Oh, and don't forget to create a `.env` file (y
 [.env.local](.env.local) as a template) with the environment variables you'll need for building and
 deploying your transform.
 
-- Then, using Node.js 22, run the following commands:
+Then, using [Node.js 22](https://nodejs.org/en/download), run the following commands:
 
 ```bash
-# Install dependencies (only the first time)
+# Install dependencies (run this only the first time)
 npm install
 
 # Build the transform document
 npm run build
 
-# Deploy the transform document (only if you need to upload it to Coherent)
+# Deploy the transform document (run this only if you need to upload it to Coherent)
 npm run deploy
 ```
 
-Now, if you are **curious** about how the final transform document is built and tested, please read on.
+> [!TIP]
+> To deploy transform documents to Coherent, you need to have valid credentials for the Coherent platform
+> (i.e., Spark base URL and access token), or use Spark UI to upload the transform document.
 
 ## Table of Contents
 
@@ -63,7 +65,9 @@ The tool is designed to help you handle complex unstructured data transformation
 
 But its real power is the scaffolding it provides for building complex data transformation pipelines.
 It takes into account different stages of the build process, including request/response mapping,
-data validation, and error handling.
+data validation, and error handling. So, if you need to build a complex data transformation pipeline,
+make the appropriate changes to the [handler](src/handler.ts), [utils](src/utils.ts) files, and
+JSONata expressions, and you'll be good to go.
 
 ## Prerequisites
 
@@ -104,8 +108,9 @@ CSPARK_BASE_URL=https://spark.my-env.coherent.global/my-tenant-name
 CSPARK_BEARER_TOKEN=Bearer <my-access-token>
 ```
 
-> **NOTE**: `CSPARK_BASE_URL` and `CSPARK_BEARER_TOKEN` are useful for publishing transform
-> documents to the Coherent platform as part of the deployment process relies on the
+> [!NOTE]
+> `CSPARK_BASE_URL` and `CSPARK_BEARER_TOKEN` are useful for publishing transform
+> documents to the Coherent platform since part of the deployment process relies on the
 > [Coherent Spark TypeScript SDK][cspark-sdk].
 
 ## Usage
@@ -184,9 +189,10 @@ The system implements comprehensive error handling:
 
 ## Limitations
 
-- No batch or asynchronous processing capabilities (i.e. the tool is synchronous).
+- No batch or asynchronous processing capabilities (i.e., the tool is synchronous).
 - Large payloads may hit API timeout limits (i.e., 60 seconds).
 - Very complex JSONata transformations may impact performance (less than 6 MB payload).
+- Fast XML parsing is not considered in the current version of the build process (can be easily added).
 - Field Mapping requires exact field name matching for proper transformations.
 
 ## Copyright and License
@@ -194,8 +200,10 @@ The system implements comprehensive error handling:
 [Apache-2.0](LICENSE)
 
 <!-- References -->
-[exec-v3]: https://docs.coherent.global/spark-apis/execute-api/execute-api-v3
-[jsonata]: https://jsonata.org/
-[fast-xml-parser]: https://www.npmjs.com/package/fast-xml-parser
+
+[node-transform-docs]: https://docs.coherent.global/spark-apis/transforms-api/transform-types/nodejs22
 [map-reduce]: https://en.wikipedia.org/wiki/MapReduce
+[exec-v3]: https://docs.coherent.global/spark-apis/execute-api/execute-api-v3
+[fast-xml-parser]: https://www.npmjs.com/package/fast-xml-parser
 [cspark-sdk]: https://www.npmjs.com/package/@cspark/sdk
+[jsonata]: https://jsonata.org/
