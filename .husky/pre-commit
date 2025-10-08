@@ -1,0 +1,10 @@
+[ -n "$CI" ] && exit 0
+
+# Check formatting
+npx --no-install prettier --check src scripts
+
+# Run tests
+npm run test
+
+# Generate transforms
+npm run build

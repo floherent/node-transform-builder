@@ -1,0 +1,50 @@
+{
+  "event": {
+    "request": {
+      "body": {
+        "data": {
+          "null": null,
+          "number": 13,
+          "string": "hello world",
+          "boolean": true,
+          "array": [41, 42, 43],
+          "object": {
+            "key": "value",
+            "key2": "value2"
+          }
+        }
+      },
+      "headers": {
+        "Accept": "*/*",
+        "Host": "excel.uat.us.coherent.global",
+        "User-Agent": "curl/8.7.1",
+        "Authorization": "Bearer <access_token>",
+        "Content-Type": "application/json",
+        "Content-Length": 201,
+        "X-Request-ID": "3ff8362b643e7387d75830f82bc0154a",
+        "X-Real-IP": "10.16.29.211",
+        "X-Forwarded-For": "10.16.29.211",
+        "X-Forwarded-Host": "excel.uat.us.coherent.global",
+        "X-Forwarded-Port": 443,
+        "X-Forwarded-Proto": "https",
+        "X-Forwarded-Scheme": "https",
+        "X-Scheme": "https",
+        "X-Original-Forwarded-For": "173.95.173.74",
+        "X-Amzn-Trace-Id": "Root=1-68507b9f-261e534b354f5fa64dbed0bf",
+        "x-custom-header": "who=developer;hobby=gaming",
+        "x-meta": "{\"call_purpose\":\"Event Viewer\"}"
+      }
+    },
+    "whitelisted_domains": ["*.coherent.global"],
+    "total_allowed_run_time_ms": 60000,
+    "context": {
+      "tenant": "my-tenant",
+      "call_purpose": "Event Viewer",
+      "spark_url": "https://excel.uat.us.coherent.global",
+      "log_level": ""
+    },
+    "secrets": {
+      "authorization": "Bearer <access_token>"
+    }
+  }
+}

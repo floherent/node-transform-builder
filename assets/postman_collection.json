@@ -1,0 +1,51 @@
+{
+  "info": {
+    "_postman_id": "90af8f7c-c974-4979-8258-adc92f814a84",
+    "name": "Coherent Spark",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26663095"
+  },
+  "item": [
+    {
+      "name": "Coherent Spark Transform",
+      "item": [
+        {
+          "name": "Node.js Transform",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-meta",
+                "value": "\"{\\\"call_purpose\\\":\\\"Debugging Postman\\\",\\\"service_uri\\\":\\\"my-folder/my-transform-name\\\",  \\\"debugger\\\": false}\""
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <my-access-token>"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"radius\": 3.4, \"height\": 4.5}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://excel.uat.us.coherent.global/my-tenant/api/v4/transforms/my-folder/my-transform-name/run",
+              "protocol": "https",
+              "host": ["excel", "uat", "us", "coherent", "global"],
+              "path": ["my-tenant", "api", "v4", "transforms", "my-folder", "my-transform-name", "run"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

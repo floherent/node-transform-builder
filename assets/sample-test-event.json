@@ -1,0 +1,30 @@
+{
+  "request": {
+    "body": [
+      { "subject": "Math", "score": 80 },
+      { "subject": "English", "score": 85 },
+      { "subject": "Science", "score": 97 }
+    ],
+    "headers": {
+      "Accept": "*/*",
+      "Host": "excel.my-env.coherent.global",
+      "Authorization": "Bearer <access_token>",
+      "Content-Type": "application/json",
+      "x-retry-after": "3000",
+      "x-meta": "{\"call_purpose\":\"Test Event\",\"correlation_id\":\"abc123\"}"
+    }
+  },
+  "whitelisted_domains": ["*.coherent.global"],
+  "total_allowed_run_time_ms": 60000,
+  "context": {
+    "tenant": "my-tenant",
+    "service_uri": "/folders/my-folder/services/my-service",
+    "call_purpose": "Test Event",
+    "correlation_id": "abc123",
+    "spark_url": "https://excel.my-env.coherent.global",
+    "log_level": ""
+  },
+  "secrets": {
+    "authorization": "Bearer <access_token>"
+  }
+}

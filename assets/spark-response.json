@@ -1,0 +1,25 @@
+{
+  "response_data": {
+    "outputs": {
+      "volume": 163.426
+    },
+    "warnings": null,
+    "errors": null,
+    "service_chain": null
+  },
+  "response_meta": {
+    "service_id": "71218d23-81f2-4084-8bcb-1824b62c6758",
+    "version_id": "7f09d649-b842-4564-99f2-178ee70b4e12",
+    "version": "0.1.0",
+    "process_time": 6,
+    "call_id": "f9c787ab-aab7-4a48-a8da-bb2df4564f75",
+    "compiler_type": "Neuron",
+    "compiler_version": "1.22.3",
+    "source_hash": null,
+    "engine_id": "6E82ED89FE2F8B3F4A47805AE19F86AE",
+    "correlation_id": "",
+    "parameterset_version_id": null,
+    "system": "SPARK",
+    "request_timestamp": "2025-10-06T23:01:44.995Z"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "rootDir": "../..",
+  "testRegex": ".*\\.e2e-test\\.ts$",
+  "moduleFileExtensions": ["js", "cjs", "ts"],
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  }
+}

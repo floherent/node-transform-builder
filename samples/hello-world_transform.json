@@ -1,0 +1,4 @@
+{
+  "transform_type": "Nodejs22_v1.0.0",
+  "transform_code": "async function handler(event){return{http_status_code:200,headers:{'Content-Type':'application/json','x-custom-header':'who=developer;hobby=gaming'},body:{greetings:'Hello, World!'}}}"
+}

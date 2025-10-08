@@ -1,0 +1,12 @@
+{
+  "request_data": {
+    "inputs": {
+      "radius": 3.4,
+      "height": 4.5
+    }
+  },
+  "request_meta": {
+    "version_id": "7f09d649-b842-4564-99f2-178ee70b4e12",
+    "call_purpose": "Node Transform"
+  }
+}

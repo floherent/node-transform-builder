@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["node", "jest"],
+    "lib": ["es2022"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.test.ts", "src/fixtures"]
+}
