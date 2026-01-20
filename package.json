@@ -1,6 +1,6 @@
 {
   "name": "node-transform-builder",
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.2",
   "description": "A tool to build node transform documents for Coherent Spark",
   "author": "Coherent (https://coherent.global)",
   "license": "Apache-2.0",
@@ -15,6 +15,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.4",
     "dotenv": "^17.0.0",
+    "fast-xml-parser": "5.2.5",
     "husky": "^9.1.7",
     "jest": "^30.0.2",
     "jsonata": "1.8.7",
@@ -40,6 +41,7 @@
     }
   },
   "scripts": {
+    "start": "npm run example",
     "example": "tsx src/handler.example.ts",
     "prebuild": "node scripts/lint-jsonata.js",
     "build": "rollup -c",

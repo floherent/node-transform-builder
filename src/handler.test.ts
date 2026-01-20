@@ -47,6 +47,25 @@ describe('Utils', () => {
     }
   });
 
+  test('parseXml() should validate and parse an XML string into a JavaScript object', () => {
+    const parsed = Utils.parseXml('<person><name>John</name><age>30</age></person>');
+    expect(parsed).toEqual({ person: { name: 'John', age: 30 } });
+  });
+
+  test('parseXml() should throw a bad request error if the XML is invalid', () => {
+    try {
+      Utils.parseXml('fake-xml-string');
+    } catch (err) {
+      expect(err.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(err.body.error.message).toBeDefined();
+    }
+  });
+
+  test('toXml() should convert a JavaScript object to an XML string', () => {
+    const xml = Utils.toXml({ person: { name: 'John', age: 30 } });
+    expect(xml).toEqual('<person><name>John</name><age>30</age></person>');
+  });
+
   test('populateResponse() should return handler-acceptable HttpResponse', () => {
     const response = {
       status: 200,

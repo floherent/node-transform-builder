@@ -1,4 +1,5 @@
 import jsonata from 'jsonata';
+import { XMLBuilder } from 'fast-xml-parser';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -16,11 +17,12 @@ async function handler(event = EVENT) {
 
   const expression = jsonata('{"subjects": [$.subject], "grade": $average($.score)~>$round(2)}');
   const transformed = await expression.evaluate(request.body);
+  const xml = new XMLBuilder().build(transformed);
 
   return {
     http_status_code: 200,
     headers: { 'Content-Type': 'application/json', 'x-tenant-name': context.tenant },
-    body: transformed
+    body: { transformed, xml }
   };
 }
 

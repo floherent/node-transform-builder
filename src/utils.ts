@@ -1,4 +1,5 @@
 import jsonata from 'jsonata';
+import * as xmlParser from 'fast-xml-parser';
 import { HttpStatus, URI_FORMAT } from './constants.js';
 import { HandlerEvent, UriParams, HttpResponse, HandlerResponse } from './types.js';
 
@@ -26,6 +27,41 @@ abstract class Utils {
         body: { error: { message }, __debugger: debug ? { expr, input, error: err } : undefined }
       };
     }
+  }
+
+  /**
+   * Validates and parses an XML string into a JavaScript object.
+   * @param {string} xml - The XML string to validate and parse.
+   * @param {xmlParser.X2jOptions} options - The options to pass to the XML parser.
+   * @param {boolean} debug - Whether to include debug information in the response.
+   * @returns {T} The parsed JavaScript object.
+   *
+   * When the XML is invalid, it throws a Bad-Request with a structure that can be used
+   * to return a HTTP response with the error message.
+   */
+  static parseXml<T = unknown>(xml: string, options?: xmlParser.X2jOptions, debug: boolean = false): T {
+    try {
+      const isValid = xmlParser.XMLValidator.validate(xml, options);
+      if (!isValid) throw isValid; // returns error object if invalid
+      return new xmlParser.XMLParser(options).parse(xml) as T;
+    } catch (err) {
+      const message = (err as xmlParser.ValidationError)?.err?.msg ?? 'unable to validate and parse XML';
+      const error = isEmptyObject(err as object) ? null : err;
+      throw {
+        status: HttpStatus.BAD_REQUEST,
+        body: { error: { message }, __debugger: debug ? { xml, options, error } : undefined }
+      };
+    }
+  }
+
+  /**
+   * Converts a JavaScript object to an XML string.
+   * @param {T} obj - The JavaScript object to convert to an XML string.
+   * @param {xmlParser.XmlBuilderOptions} options - The options to pass to the XML builder.
+   * @returns {string} The XML string.
+   */
+  static toXml<T = unknown>(obj: T, options?: xmlParser.XmlBuilderOptions): string {
+    return new xmlParser.XMLBuilder(options).build(obj);
   }
 
   /**
@@ -262,7 +298,7 @@ class HandlerError extends Error {
   }
 
   static format(message: string, code: string = 'SPARK_LAMBDA_EXECUTION_ERROR'): any {
-    return { spark_transform_response_httpstatuscode: 422, code, message };
+    return { spark_transform_response_httpstatuscode: HttpStatus.UNPROCESSABLE_ENTITY, code, message };
   }
 
   /**
@@ -271,7 +307,7 @@ class HandlerError extends Error {
    * - Lambda runtime error
    *
    * @param body - the Spark model execution response
-   * NOTE: Thrown error objects are meant to be populated as a successful response so EIS
+   * NOTE: Thrown error objects are meant to be populated as a successful response so Client Apps
    * can process the payload and display the error message accordingly.
    */
   static runDiagnostics(body: any = {}): any {
@@ -279,19 +315,13 @@ class HandlerError extends Error {
       // Possible Spark runtime error.
       const { errors, warnings: _ } = body.response_data ?? {}; // NOTE: ignore warnings for now.
       if (Array.isArray(errors) && errors.length > 0) {
-        return {
-          spark_transform_response_httpstatuscode: 422,
-          code: 'SPARK_MODEL_EXECUTION_ERROR',
-          message: errors.map((e: any) => `[${e.error_type}] ${e.message}`).join('; ')
-        };
+        const message = errors.map((e: any) => `[${e.error_type}] ${e.message}`).join('; ');
+        return HandlerError.format(message);
       }
     } else if (body.status === 'Error' || body.errorCode) {
       // Possible Lambda runtime error.
-      return {
-        spark_transform_response_httpstatuscode: 422,
-        code: body.errorCode ?? 'SPARK_MODEL_EXECUTION_ERROR',
-        message: String(body.error ?? body.errors)
-      };
+      const message = String(body.error ?? body.errors);
+      return HandlerError.format(message, body.errorCode ?? 'SPARK_MODEL_EXECUTION_ERROR');
     }
 
     return undefined;

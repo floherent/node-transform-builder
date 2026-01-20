@@ -20,6 +20,7 @@ const createTransformCode = (sourceCode, requestJsonata, responseJsonata) => {
     ['{{REQUEST_JSONATA_EXPRESSION}}', cleanJsonata(requestJsonata)],
     ['{{RESPONSE_JSONATA_EXPRESSION}}', cleanJsonata(responseJsonata)],
     [`import jsonata from 'jsonata';`, `const jsonata = require('jsonata');`],
+    [`import * as xmlParser from 'fast-xml-parser';`, `const xmlParser = require('fast-xml-parser');`],
     ['export { handler };', ''] // Spark Engine complains if this line is present
   ];
 

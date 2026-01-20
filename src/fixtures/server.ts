@@ -4,7 +4,6 @@ import { once } from 'node:events';
 // A simple local server for testing purposes.
 export default class LocalServer {
   private server: http.Server;
-  nextResponseHandler?: (res: http.ServerResponse<http.IncomingMessage>) => void;
 
   constructor(readonly hostname: string = 'localhost') {
     this.server = http.createServer(this.router);

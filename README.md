@@ -192,7 +192,7 @@ The system implements comprehensive error handling:
 - No batch or asynchronous processing capabilities (i.e., the tool is synchronous).
 - Large payloads may hit API timeout limits (i.e., 60 seconds).
 - Very complex JSONata transformations may impact performance (less than 6 MB payload).
-- Fast XML parsing is not considered in the current version of the build process (can be easily added).
+- Fast XML parsing is considered but not in use in the current version of the build process.
 - Field Mapping requires exact field name matching for proper transformations.
 
 ## Copyright and License
