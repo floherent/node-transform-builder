@@ -1,0 +1,34 @@
+---
+description: Rules for editing the mapping document that drives JSONata transforms
+globs: assets/mapping.json
+alwaysApply: false
+---
+
+# Mapping Document Rules
+
+## Required Structure
+
+The mapping document must have:
+- `$schema` starting with `"mapping-document"`
+- `request` and `response` sections, each with `source`, `target`, and `mappings`
+- Each mapping entry needs at least `source_path` and `target_path`
+
+## Field Conventions
+
+- `source_path` / `target_path`: dot-notation paths (e.g., `response_data.outputs.volume`)
+- `transform`: a JSONata fragment where `$` is the source value (e.g., `>= 0 ? $ : 0`), or `null`
+- `default_value`: fallback when source is missing, or `null`
+- `transform` must not contain backticks
+
+## Request Mappings
+
+- `target_path` is the Spark input field name (e.g., `radius`), not the full envelope path
+- The handler wraps the transform output in `request_data.inputs` automatically
+
+## Response Mappings
+
+- `source_path` must use the full path from the Spark response root (e.g., `response_data.outputs.volume`)
+
+## Validation
+
+Run `node scripts/validate-mapping.js` after any edit. It checks structure, path existence in fixtures, and JSONata validity of transform fragments.

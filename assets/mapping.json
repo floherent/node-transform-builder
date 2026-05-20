@@ -1,0 +1,37 @@
+{
+  "$schema": "mapping-document-v1",
+  "description": "Mapping between unstructured and Spark request/response for cylinder volume calculation",
+  "request": {
+    "source": "assets/unstructured-request.json",
+    "target": "assets/spark-request.json",
+    "mappings": [
+      {
+        "source_path": "radius_field",
+        "target_path": "radius",
+        "transform": ">= 0 ? $",
+        "default_value": null,
+        "description": "Maps radius_field to Spark input radius (only if non-negative)"
+      },
+      {
+        "source_path": "height_field",
+        "target_path": "height",
+        "transform": ">= 0 ? $ : 0",
+        "default_value": 0,
+        "description": "Maps height_field to Spark input height (defaults to 0 if negative)"
+      }
+    ]
+  },
+  "response": {
+    "source": "assets/spark-response.json",
+    "target": "assets/unstructured-response.json",
+    "mappings": [
+      {
+        "source_path": "response_data.outputs.volume",
+        "target_path": "volume_field",
+        "transform": null,
+        "default_value": null,
+        "description": "Maps Spark output volume to volume_field"
+      }
+    ]
+  }
+}

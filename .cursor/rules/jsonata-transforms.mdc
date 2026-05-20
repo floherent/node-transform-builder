@@ -1,0 +1,29 @@
+---
+description: JSONata authoring and validation rules for transform expressions
+globs: transforms/**/*.jsonata
+alwaysApply: false
+---
+
+# JSONata Transform Rules
+
+## Forbidden Patterns
+
+- **No backticks** — they break `dist/handler.js` at runtime. Use `$."field-name"` for special characters.
+- **No `//` line comments** — only one-line `/* ... */` block comments. The build strips block comments; line comments break minified output.
+- **No template literals** — expressions must be standalone JSONata, no JavaScript.
+
+## Authoring
+
+- Derive transforms from `assets/mapping.json` (the source of truth).
+- Request transforms produce the `request_data.inputs` object only — the handler adds the envelope.
+- Response transforms receive the full Spark response; use `$.response_data.outputs.field` paths.
+- Quote field names containing dashes, dots, or spaces: `$."my-field"`.
+
+## Validation
+
+```bash
+node scripts/lint-jsonata.js    # syntax check + test against fixtures
+node scripts/validate-mapping.js # validate the mapping document
+```
+
+Always run validation after editing transforms. Fix all errors before committing.
